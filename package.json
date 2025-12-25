@@ -1,0 +1,27 @@
+{
+  "name": "pill-tracer",
+  "version": "1.0.0",
+  "description": "Medicine Inventory Management System - Database Administration Project",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "seed": "node db/seed.js",
+    "setup:firebase": "node setup-firebase.js"
+  },
+  "keywords": [
+    "medicine",
+    "inventory",
+    "mongodb",
+    "pharmacy"
+  ],
+  "author": "Database Administration Project",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "firebase-admin": "^13.6.0",
+    "oracledb": "^6.10.0"
+  }
+}

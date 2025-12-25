@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pharmacy Portal - Pill Tracer</title>
+    <link rel="stylesheet" href="css/pharmacy-portal.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="logo">
+            <h2>🏥 Pill Tracer</h2>
+            <p id="pharmacyName">Loading...</p>
+        </div>
+        <nav class="nav-menu">
+            <a href="#dashboard" class="nav-item active" data-section="dashboard">
+                <i class="fas fa-chart-line"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="#inventory" class="nav-item" data-section="inventory">
+                <i class="fas fa-pills"></i>
+                <span>My Inventory</span>
+            </a>
+        </nav>
+        <div class="sidebar-footer">
+            <button id="logoutBtn" class="btn-logout">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Logout</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Header -->
+        <header class="header">
+            <h1 id="sectionTitle">Dashboard</h1>
+            <div class="header-actions">
+                <div class="user-info">
+                    <i class="fas fa-user-circle"></i>
+                    <span id="userEmail">Loading...</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Dashboard Section -->
+        <section id="dashboardSection" class="content-section active">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                        <i class="fas fa-pills"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="totalMedicines">0</h3>
+                        <p>Total Medicines</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                        <i class="fas fa-dollar-sign"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="inventoryValue">PKR 0</h3>
+                        <p>Inventory Value</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="lowStock">0</h3>
+                        <p>Low Stock</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);">
+                        <i class="fas fa-times-circle"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="outOfStock">0</h3>
+                        <p>Out of Stock</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="welcome-message">
+                <h2>Welcome to Your Pharmacy Portal</h2>
+                <p>Manage your inventory, track stock levels, and keep your medicines up to date.</p>
+            </div>
+        </section>
+
+        <!-- Inventory Section -->
+        <section id="inventorySection" class="content-section">
+            <div class="section-header">
+                <input type="text" id="searchInventory" placeholder="Search medicines..." class="search-input">
+                <div class="header-buttons">
+                    <button id="addFromMasterBtn" class="btn btn-secondary">
+                        <i class="fas fa-search"></i> Add from Master List
+                    </button>
+                    <button id="addNewMedicineBtn" class="btn btn-primary">
+                        <i class="fas fa-plus"></i> Add New Medicine
+                    </button>
+                    <button id="refreshInventory" class="btn btn-secondary">
+                        <i class="fas fa-sync-alt"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Medicine Name</th>
+                            <th>Description</th>
+                            <th>Price (PKR)</th>
+                            <th>Quantity</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="inventoryTableBody">
+                        <tr>
+                            <td colspan="6" class="text-center">Loading inventory...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+
+    <!-- Add New Medicine Modal -->
+    <div id="addMedicineModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add New Medicine</h3>
+                <span class="close" onclick="closeAddModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Medicine Name *</label>
+                    <input type="text" id="newMedicineName" class="form-control" placeholder="Enter medicine name"
+                        required>
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea id="newMedicineDesc" class="form-control" rows="3"
+                        placeholder="Enter description (optional)"></textarea>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Price (PKR) *</label>
+                        <input type="number" id="newMedicinePrice" class="form-control" placeholder="0.00" min="0"
+                            step="0.01" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Quantity *</label>
+                        <input type="number" id="newMedicineQuantity" class="form-control" placeholder="0" min="0"
+                            required>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="saveNewMedicineBtn" class="btn btn-primary">
+                    <i class="fas fa-plus"></i> Add Medicine
+                </button>
+                <button class="btn btn-secondary" onclick="closeAddModal()">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add from Master List Modal -->
+    <div id="masterListModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add from Master List</h3>
+                <span class="close" onclick="closeMasterModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Search Medicine</label>
+                    <input type="text" id="medicineSearch" placeholder="Type medicine name..." class="form-control">
+                    <div id="medicineResults" class="search-results"></div>
+                </div>
+
+                <div id="selectedMedicineInfo" class="selected-medicine" style="display: none;">
+                    <h3>Selected Medicine</h3>
+                    <p><strong>Name:</strong> <span id="selectedMedicineName"></span></p>
+                    <p><strong>Description:</strong> <span id="selectedMedicineDesc"></span></p>
+                    <input type="hidden" id="selectedMedicineId">
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Price (PKR) *</label>
+                            <input type="number" id="medicinePrice" placeholder="0.00" min="0" step="0.01"
+                                class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Quantity *</label>
+                            <input type="number" id="medicineQuantity" placeholder="0" min="0" class="form-control"
+                                required>
+                        </div>
+                    </div>
+
+                    <button id="addToInventoryBtn" class="btn btn-primary">
+                        <i class="fas fa-plus"></i> Add to Inventory
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Medicine Modal -->
+    <div id="editMedicineModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Edit Medicine</h3>
+                <span class="close" onclick="closeEditModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="editMedicineId">
+                <div class="form-group">
+                    <label>Medicine Name *</label>
+                    <input type="text" id="editMedicineName" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea id="editMedicineDesc" class="form-control" rows="3"></textarea>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Price (PKR) *</label>
+                        <input type="number" id="editMedicinePrice" class="form-control" min="0" step="0.01" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Quantity *</label>
+                        <input type="number" id="editMedicineQuantity" class="form-control" min="0" required>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="saveEditBtn" class="btn btn-primary">
+                    <i class="fas fa-save"></i> Save Changes
+                </button>
+                <button class="btn btn-secondary" onclick="closeEditModal()">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+
+    <!-- Pharmacy Portal Script -->
+    <script src="js/pharmacy-portal.js"></script>
+</body>
+
+</html>

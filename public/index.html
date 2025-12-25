@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pill Tracer - Medicine Inventory Management</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                        <rect width="40" height="40" rx="10" fill="url(#gradient1)" />
+                        <path
+                            d="M20 10C15.5817 10 12 13.5817 12 18C12 22.4183 15.5817 26 20 26C24.4183 26 28 22.4183 28 18C28 13.5817 24.4183 10 20 10ZM20 23C17.2386 23 15 20.7614 15 18C15 15.2386 17.2386 13 20 13C22.7614 13 25 15.2386 25 18C25 20.7614 22.7614 23 20 23Z"
+                            fill="white" />
+                        <rect x="18" y="24" width="4" height="8" rx="2" fill="white" />
+                        <defs>
+                            <linearGradient id="gradient1" x1="0" y1="0" x2="40" y2="40">
+                                <stop offset="0%" stop-color="#06b6d4" />
+                                <stop offset="100%" stop-color="#3b82f6" />
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                    <h1>Pill Tracer</h1>
+                </div>
+                <a href="/auth.html" class="admin-btn">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                        <path
+                            d="M10 10c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                    </svg>
+                    Register Pharmacy
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Public Search Section -->
+            <section class="search-section" id="publicSection">
+                <div class="section-header">
+                    <h2>Search Medicines</h2>
+                    <p>Find medicine availability, prices, and stock across Pakistan</p>
+                </div>
+
+                <div class="search-container">
+                    <div class="search-box">
+                        <svg class="search-icon" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor">
+                            <circle cx="11" cy="11" r="8" />
+                            <path d="m21 21-4.35-4.35" />
+                        </svg>
+                        <input type="text" id="searchInput"
+                            placeholder="Search for medicine (e.g., Panadol, Augmentin)">
+                    </div>
+
+                    <div class="filters">
+                        <select id="countryFilter" class="filter-select">
+                            <option value="">All Countries</option>
+                        </select>
+                        <select id="cityFilter" class="filter-select">
+                            <option value="">All Cities</option>
+                        </select>
+                        <button class="search-btn" id="searchBtn">
+                            Search
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Results Section -->
+                <div class="results-container" id="resultsContainer">
+                    <div class="results-header">
+                        <h3>Search Results</h3>
+                        <span class="results-count" id="resultsCount">0 results</span>
+                    </div>
+                    <div class="table-container">
+                        <table class="results-table" id="resultsTable">
+                            <thead>
+                                <tr>
+                                    <th>Medicine</th>
+                                    <th>Description</th>
+                                    <th>Branch</th>
+                                    <th>City</th>
+                                    <th>Price (PKR)</th>
+                                    <th>Stock</th>
+                                </tr>
+                            </thead>
+                            <tbody id="resultsBody">
+                                <tr class="no-results">
+                                    <td colspan="6">
+                                        <div class="empty-state">
+                                            <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+                                                <circle cx="32" cy="32" r="30" stroke="#e5e7eb" stroke-width="4" />
+                                                <path d="M32 20v24M20 32h24" stroke="#e5e7eb" stroke-width="4"
+                                                    stroke-linecap="round" />
+                                            </svg>
+                                            <p>Search for medicines to see results</p>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay hidden" id="loadingOverlay">
+        <div class="spinner"></div>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+
+</html>
